@@ -37,25 +37,16 @@ public class Result<T> implements Serializable {
         this.message = "操作成功!";
     }
 
-    public void success(T data,String message){
-        this.flag=true;
-        this.code=StatusCode.OK;
-        this.message=message;
-        this.data=data;
+    public Result<T> success(String message,T data){
+        return new Result<T>(true,StatusCode.OK,message,data);
     }
 
-    public void success(String message) {
-        this.flag = true;
-        this.code = StatusCode.OK;
-        this.message = message;
-        this.data=null;
+    public Result<T> success(String message) {
+        return new Result<T>(true,StatusCode.OK,message,null);
     }
 
-    public void failure(String message) {
-        this.flag = false;
-        this.code = StatusCode.ERROR;
-        this.message = message;
-        this.data = null;
+    public Result<T> failure(String message) {
+        return new Result<T>(false,StatusCode.ERROR,message,null);
     }
     public boolean isFlag() {
         return flag;

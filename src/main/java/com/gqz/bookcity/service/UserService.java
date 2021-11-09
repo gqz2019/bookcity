@@ -16,4 +16,8 @@ public interface UserService {
     void update(User user);
 
     Integer getListCount();
+
+    Boolean findUserByUsername(String username);
+
+    Boolean signIn(User user);
 }

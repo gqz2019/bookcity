@@ -5,18 +5,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
                   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
     <!--配置拦截器-->
-<!--    <mvc:interceptors>
-        <mvc:interceptor>
-            &lt;!&ndash;要拦截的路径&ndash;&gt;
-            <mvc:mapping path="/**"/>
-            &lt;!&ndash;不拦截的路径&ndash;&gt;
-            <mvc:exclude-mapping path="/user2/login"/>
-            <mvc:exclude-mapping path="/resources/**"/>
-            <bean class="com.tledu.interceptor.AuthInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>-->
+    <!--    <mvc:interceptors>-->
+    <!--        <mvc:interceptor>-->
+    <!--            &lt;!&ndash;要拦截的路径&ndash;&gt;-->
+    <!--            <mvc:mapping path="/**"/>-->
+    <!--            &lt;!&ndash;不拦截的路径&ndash;&gt;-->
+    <!--            <mvc:exclude-mapping path="/user2/login"/>-->
+    <!--            <mvc:exclude-mapping path="/resources/**"/>-->
+    <!--            <bean class="com.tledu.interceptor.AuthInterceptor" />-->
+    <!--        </mvc:interceptor>-->
+    <!--    </mvc:interceptors>&ndash;&gt;-->
     <!--配置静态文件目录-->
-    <mvc:resources mapping="/**" location="/static/" />
+    <!--    <mvc:resources mapping="/**" location="/static/" />-->
 
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
     <mvc:annotation-driven>
@@ -42,6 +42,8 @@
         <property name="prefix" value="/view/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
-
-
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" max-age="1800"
+                     allowed-methods="*" allow-credentials="true" allowed-headers="*"/>
+    </mvc:cors>
 </beans>

@@ -58,4 +58,25 @@ public class UserServiceImpl implements UserService {
     public Integer getListCount() {
         return userMapper.selectCount(new User());
     }
+
+    @Override
+    public Boolean findUserByUsername(String username) {
+        User user = new User();
+        user.setUsername(username);
+        List<User> list = userMapper.select(user);
+        if (list.isEmpty()) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean signIn(User user) {
+        List<User> list = userMapper.select(user);
+        if (list.isEmpty()) {
+            throw new RuntimeException("登录失败，账户或者密码错误");
+        }
+        return !list.isEmpty();
+    }
 }

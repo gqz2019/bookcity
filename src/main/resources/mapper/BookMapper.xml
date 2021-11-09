@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gqz.bookcity.dao.BookMapper">
+  <resultMap id="BaseResultMap" type="com.gqz.bookcity.po.Book">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="sales" jdbcType="INTEGER" property="sales" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+  </resultMap>
+</mapper>
