@@ -1,8 +1,7 @@
 package com.gqz.bookcity.service;
 
+import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.po.Book;
-
-import java.util.List;
 
 /**
  * <p></p>
@@ -13,7 +12,7 @@ import java.util.List;
 public interface BookService {
     void addBook(Book book);
 
-    List<Book> findAll();
+    PageInfo<Book> findAll(Integer pageNum, Integer pageSize);
 
     void updateBook(Book book);
 

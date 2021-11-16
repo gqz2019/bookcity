@@ -1,12 +1,11 @@
 package com.gqz.bookcity.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.entity.Result;
 import com.gqz.bookcity.po.Book;
 import com.gqz.bookcity.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>图书的控制类</p>
@@ -32,13 +31,14 @@ public class BookController {
     }
 
     /**
-     * 查询所有
+     * 分页查询所有
      * @return
      */
-    @GetMapping("findAll")
-    public Result<List<Book>> findAll() {
-        List<Book> books = bookService.findAll();
-        return new Result<List<Book>>().success("添加图书成功",books);
+    @GetMapping("findAll/{pageNum}/{pageSize}")
+    public Result<PageInfo<Book>> findAll(@PathVariable("pageNum")Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+        PageInfo<Book> books = bookService.findAll(pageNum,pageSize);
+        return new Result<PageInfo<Book>>().success("查找图书成功",books);
+
     }
 
     /**
