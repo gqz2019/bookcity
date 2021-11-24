@@ -52,7 +52,7 @@ public class OrderController {
                 1, book.getPrice().multiply(BigDecimal.valueOf(1)),
                 LocalDate.now(),
                 0,
-                uid);
+                103);
 
         orderService.addCart(order);
         ids.add(book.getId());

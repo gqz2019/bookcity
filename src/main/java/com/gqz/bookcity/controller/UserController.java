@@ -102,7 +102,7 @@ public class UserController {
     public Result signIn(@RequestBody User user , HttpServletRequest request ){
         User signInUser = userService.signIn(user);
         request.getSession().setAttribute("signInUser",signInUser.getId());
-//        Object kk = session.getAttribute("signInUser");
+
         return new Result(true,StatusCode.OK,"登陆成功",null);
     }
 
