@@ -82,4 +82,18 @@ public class BookServiceImpl implements BookService {
             throw new RuntimeException("delete book failure");
         }
     }
+
+    @Override
+    public int findCount() {
+        int count = bookMapper.selectCount(null);
+        return count;
+    }
+
+    @Override
+    public Book findBookById(Integer id) {
+        Book temp = new Book();
+        temp.setId(id);
+        Book book = bookMapper.selectOne(temp);
+        return book;
+    }
 }

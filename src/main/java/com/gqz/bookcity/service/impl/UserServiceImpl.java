@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,11 +73,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean signIn(User user) {
-        List<User> list = userMapper.select(user);
-        if (list.isEmpty()) {
+    public User signIn(User user) {
+        User list = userMapper.selectOne(user);
+        if (list==null) {
             throw new RuntimeException("登录失败，账户或者密码错误");
         }
-        return !list.isEmpty();
+        return list;
+    }
+
+    @Override
+    public Map<String, Object> findUserRoles(String username) {
+        Map<String, Object> userRoles= userMapper.findUserRoles(username);
+        return userRoles;
     }
 }

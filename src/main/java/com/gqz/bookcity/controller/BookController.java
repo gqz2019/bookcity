@@ -21,6 +21,7 @@ public class BookController {
 
     /**
      * 添加图书
+     *
      * @param book
      * @return
      */
@@ -32,30 +33,37 @@ public class BookController {
 
     /**
      * 分页查询所有
+     *
      * @return
      */
     @GetMapping("findAll/{pageNum}/{pageSize}")
-    public Result<PageInfo<Book>> findAll(@PathVariable("pageNum")Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
-        PageInfo<Book> books = bookService.findAll(pageNum,pageSize);
-        return new Result<PageInfo<Book>>().success("查找图书成功",books);
+    public Result<PageInfo<Book>> findAll(@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+        PageInfo<Book> books = bookService.findAll(pageNum, pageSize);
+        return new Result<PageInfo<Book>>().success("查找图书成功", books);
 
     }
 
     /**
      * 修改图示
+     *
      * @param book
      * @return
      */
     @PutMapping("update")
-    public Result updateBook(@RequestBody Book book){
+    public Result updateBook(@RequestBody Book book) {
         bookService.updateBook(book);
         return new Result().success("修改图书成功");
     }
 
     @DeleteMapping("delete")
-    public Result deleteBook(@RequestBody Book book){
+    public Result deleteBook(@RequestBody Book book) {
         bookService.deleteBook(book);
         return new Result().success("delete book success");
     }
 
+    @GetMapping("getCount")
+    public Result findCount(){
+        int count= bookService.findCount();
+        return new Result().success("查询数量成功",count);
+    }
 }

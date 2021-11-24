@@ -4,6 +4,8 @@ package com.gqz.bookcity.service;
 import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.po.User;
 
+import java.util.Map;
+
 public interface UserService {
     void add(User user);
 
@@ -19,5 +21,7 @@ public interface UserService {
 
     Boolean findUserByUsername(String username);
 
-    Boolean signIn(User user);
+    User signIn(User user);
+
+    Map<String, Object> findUserRoles(String username);
 }

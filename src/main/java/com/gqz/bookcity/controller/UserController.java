@@ -97,14 +97,19 @@ public class UserController {
             return new Result(false, StatusCode.ERROR, "该用户名已存在", b);
         }
     }
-
+//    @PreAuthorize("permitAll()")
     @PostMapping("signIn")
-    public Result signIn(@RequestBody User user ,HttpServletRequest request ){
-        Boolean b= userService.signIn(user);
-        if (b) {
-            request.getSession().setAttribute("isSignIn",b);
-        }
+    public Result signIn(@RequestBody User user , HttpServletRequest request ){
+        User signInUser = userService.signIn(user);
+        request.getSession().setAttribute("signInUser",signInUser.getId());
+//        Object kk = session.getAttribute("signInUser");
         return new Result(true,StatusCode.OK,"登陆成功",null);
     }
 
+    @GetMapping("signOut")
+    public Result signOut(HttpServletRequest request){
+        request.getSession().invalidate();
+        return new Result(true,StatusCode.OK,"注销成功",null);
+
+    }
 }
