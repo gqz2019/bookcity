@@ -1,0 +1,34 @@
+package com.gqz.bookcity.advice;
+
+
+import com.alibaba.fastjson.JSONObject;
+import com.gqz.bookcity.po.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author gqz20
+ */
+public class LoginInterceptor implements HandlerInterceptor {
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String loginUser = (String) redisTemplate.opsForValue().get("loginUser");
+        User user = JSONObject.parseObject(loginUser, User.class);
+
+        String requestType = request.getHeader("X-Requested-With");
+        if (loginUser == null) {
+            if ("XMLHttpRequest".equals(requestType)) {
+                response.getWriter().write("{\"isLogin\":\"false\"}");
+            }
+            return false;
+        }
+        return true;
+    }
+}

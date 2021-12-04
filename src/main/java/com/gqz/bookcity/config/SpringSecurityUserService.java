@@ -1,4 +1,4 @@
-package com.gqz.bookcity.security;
+package com.gqz.bookcity.config;
 
 import com.gqz.bookcity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

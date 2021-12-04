@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+<!--    <bean class="org.springframework.cache.support.SimpleCacheManager" id="cacheManager">-->
+<!--        <property name="caches">-->
+<!--            <set>-->
+<!--                <bean class="com.gqz.bookcity.advice.MyRedisCache">-->
+<!--                    <property name="name" value="shopCart"></property>-->
+<!--                    <property name="redisTemplate" ref="redisTemplate"></property>-->
+<!--                </bean>-->
+<!--            </set>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+
+    <cache:annotation-driven cache-manager="cacheManager"/>
+
+    <!--    <import resource="spring-security.xml"/>-->
+    <!--redis-->
+    <context:property-placeholder location="classpath:redis.properties"
+                                  ignore-unresolvable="true"></context:property-placeholder>
+    <bean class="redis.clients.jedis.JedisPoolConfig" id="jedisPoolConfig">
+        <property name="maxIdle" value="${redis.pool.maxIdle}"></property>
+        <property name="maxTotal" value="${redis.pool.maxActive}"></property>
+        <property name="minIdle" value="${redis.pool.minIdle}"></property>
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}"></property>
+    </bean>
+    <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" id="jedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"></property>
+        <property name="port" value="${redis.port}"></property>
+        <property name="timeout" value="${redis.timeout}"></property>
+        <property name="poolConfig" ref="jedisPoolConfig"></property>
+        <property name="usePool" value="true"></property>
+        <property name="database" value="1"></property>
+    </bean>
+    <bean class="org.springframework.data.redis.core.RedisTemplate" id="redisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="stringRedisSerializer"/>
+        <property name="hashKeySerializer" ref="fastJsonRedisSerializer"/>
+        <property name="hashValueSerializer" ref="stringRedisSerializer"/>
+    </bean>
+    <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" id="stringRedisSerializer"/>
+    <bean class="com.alibaba.fastjson.support.spring.FastJsonRedisSerializer" id="fastJsonRedisSerializer">
+        <constructor-arg name="type" value="java.lang.Integer"></constructor-arg>
+    </bean>
+</beans>
