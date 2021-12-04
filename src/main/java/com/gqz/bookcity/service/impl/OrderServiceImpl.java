@@ -1,12 +1,8 @@
 package com.gqz.bookcity.service.impl;
 
-import com.gqz.bookcity.po.Book;
 import com.gqz.bookcity.po.Order;
 import com.gqz.bookcity.service.OrderService;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,35 +12,38 @@ import org.springframework.stereotype.Service;
  * @create 2021-11-23 21:41
  **/
 @Service
+@CacheConfig(cacheNames = "shopCart")
 public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    @CachePut(cacheNames = "books", key = "#order.bid")
-    public void addCart(Order order) {
-
+    @CachePut(key = "#order.bid")
+    public Order addCart(Order order) {
+        return order;
     }
 
     @Override
-    @CacheEvict(cacheNames = "books", key = "#order.bid")
+    @CacheEvict(key = "#order.bid")
     public void deleteCart(Order order) {
 
     }
 
     @Override
-    @Cacheable(cacheNames = "books", key = "#id")
-    public Book getCart(Integer id) {
-        return new Book();
+    @Cacheable(key = "#id")
+    public Order getCart(Integer id) {
+        Order o = new Order();
+        o.setBid(id);
+        return o;
     }
 
     @Override
-    @CacheEvict(cacheNames = "books", allEntries = true)
+    @CacheEvict(allEntries = true)
     public void deleteAllCart() {
     }
 
     @Override
-    @Caching(cacheable = {@Cacheable(cacheNames = "books", key = "#id")},
-            put = {@CachePut(value = "books", key = "#id")})
+    @Caching(cacheable = {@Cacheable(key = "#id")},
+            put = {@CachePut(key = "#id")})
     public Order modifyCart(Integer count, Integer id) {
         Order order = new Order();
         order.setCount(count);

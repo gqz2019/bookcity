@@ -3,10 +3,11 @@ package com.gqz.bookcity.po;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "t_role")
 @Data
-public class Role {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

@@ -1,6 +1,5 @@
 package com.gqz.bookcity.service;
 
-import com.gqz.bookcity.po.Book;
 import com.gqz.bookcity.po.Order;
 
 /**
@@ -11,11 +10,11 @@ import com.gqz.bookcity.po.Order;
  **/
 public interface OrderService {
 
-    void addCart(Order order);
+    Order addCart(Order order);
 
     void deleteCart(Order order);
 
-    Book getCart(Integer id);
+    Order getCart(Integer id);
 
     void deleteAllCart();
 

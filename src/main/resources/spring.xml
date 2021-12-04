@@ -2,18 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:annotation-config/>
     <!--开启扫描包-->
     <context:component-scan base-package="com.gqz.bookcity"/>
     <!--指定jdbc.properties数据源信息文件所在位置-->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
     <!--创建dataSource数据源对象-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"></property>
@@ -52,17 +52,9 @@
     <!--文件上传初始化MultipartResolver,指定上传文件的大小-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!--单位b-->
-        <property name="maxUploadSize" value="5000000000"/>
+        <property name="maxUploadSize" value="5000000"/>
     </bean>
-    <!--    开启缓存-->
-    <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheManager" id="cacheManager">
-        <constructor-arg name="cacheNames" value="books"></constructor-arg>
-    </bean>
-
-    <cache:annotation-driven cache-manager="cacheManager"/>
 
     <import resource="classpath:spring-mvc.xml"/>
-
-    <!--    <import resource="spring-security.xml"/>-->
-
+    <import resource="classpath*:spring-cache.xml"></import>
 </beans>

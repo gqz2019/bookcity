@@ -1,11 +1,13 @@
 package com.gqz.bookcity.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.constant.StatusCode;
 import com.gqz.bookcity.entity.Result;
 import com.gqz.bookcity.po.User;
 import com.gqz.bookcity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/add")
     public Result<User> add(@RequestBody User user) {
@@ -30,11 +34,6 @@ public class UserController {
             result.failure("添加用户失败");
         }
         return result;
-    }
-
-    @RequestMapping("/toAdd")
-    public String toAdd() {
-        return "user_add";
     }
 
     @RequestMapping("/list")
@@ -97,19 +96,22 @@ public class UserController {
             return new Result(false, StatusCode.ERROR, "该用户名已存在", b);
         }
     }
-//    @PreAuthorize("permitAll()")
-    @PostMapping("signIn")
-    public Result signIn(@RequestBody User user , HttpServletRequest request ){
-        User signInUser = userService.signIn(user);
-        request.getSession().setAttribute("signInUser",signInUser.getId());
 
-        return new Result(true,StatusCode.OK,"登陆成功",null);
+    //    @PreAuthorize("permitAll()")
+    @PostMapping("signIn")
+    public Result signIn(@RequestBody User user) {
+        User signInUser = userService.signIn(user);
+        redisTemplate.opsForValue().set("loginUser", JSON.toJSONString(signInUser));
+        return new Result(true, StatusCode.OK, "登陆成功", null);
     }
 
     @GetMapping("signOut")
-    public Result signOut(HttpServletRequest request){
-        request.getSession().invalidate();
-        return new Result(true,StatusCode.OK,"注销成功",null);
+    public Result signOut(HttpServletRequest request) {
+        Boolean aBoolean = redisTemplate.delete("loginUser");
+        if (!aBoolean) {
+            throw new RuntimeException("注销失败");
+        }
+        return new Result(true, StatusCode.OK, "注销成功", null);
 
     }
 }
