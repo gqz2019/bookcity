@@ -2,6 +2,7 @@ package com.gqz.bookcity.service.impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.service.OrderService;
 import com.gqz.bookcity.service.UserService;
 import org.junit.After;
 import org.junit.Before;
@@ -31,6 +32,8 @@ import java.net.URLConnection;
 public class UserServiceImplTest {
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
 
     /**
@@ -152,5 +155,11 @@ public class UserServiceImplTest {
 
         User user = new User();
 
+    }
+
+    @Test
+    public void aVoid(){
+        System.out.println("=====================");
+        orderService.getAllOrders(103).forEach(System.out::println);
     }
 }

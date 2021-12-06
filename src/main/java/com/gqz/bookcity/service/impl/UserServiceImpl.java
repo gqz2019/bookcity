@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add(User user) {
-//        userMapper.add(user);
         int i = userMapper.insert(user);
     }
 
@@ -45,7 +44,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-//        return userMapper.getUserById(id);
         return userMapper.selectByPrimaryKey(id);
 
     }
@@ -85,5 +83,14 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> findUserRoles(String username) {
         Map<String, Object> userRoles= userMapper.findUserRoles(username);
         return userRoles;
+    }
+
+    @Override
+    public List<User> findUsers() {
+        List<User> users = userMapper.selectAll();
+        if (users == null) {
+            throw new RuntimeException("查询所有用户失败");
+        }
+        return users;
     }
 }

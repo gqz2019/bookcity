@@ -1,6 +1,7 @@
 package com.gqz.bookcity.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gqz.bookcity.entity.Result;
 import com.gqz.bookcity.po.Book;
 import com.gqz.bookcity.po.Order;
@@ -31,6 +32,12 @@ public class OrderController {
 
     private List<Integer> ids = new Vector<>();
 
+    /**
+     * Instantiates a new Order controller.
+     *
+     * @param orderService  the order service
+     * @param redisTemplate the redis template
+     */
     @Autowired
     public OrderController(OrderService orderService, RedisTemplate<String, Object> redisTemplate) {
         this.orderService = orderService;
@@ -58,12 +65,18 @@ public class OrderController {
                 LocalDate.now(),
                 0,
                 login.getId());
-
         orderService.addCart(order);
          ids.add(book.getId());
         return new Result().success("添加购物车成功");
     }
 
+    /**
+     * Modify cart result.
+     *
+     * @param count the count
+     * @param id    the id
+     * @return the result
+     */
     @PutMapping("modifyCart")
     public Result modifyCart(Integer count, Integer id) {
 
@@ -77,9 +90,9 @@ public class OrderController {
      * @return 添加成功/失败
      */
     @DeleteMapping("/deleteCart")
-    public Result deleteCart(@RequestBody Order order) {
-        orderService.deleteCart(order);
-        ids.remove(order.getBid());
+    public Result deleteCart(Integer bid) {
+        orderService.deleteCart(bid);
+        ids.remove(bid);
         return new Result().success("删除购物车成功");
     }
 
@@ -111,6 +124,7 @@ public class OrderController {
             paramMap.put("count", order.getCount());
             paramMap.put("price", bookById.getPrice());
             paramMap.put("totalAmount", order.getTotalprice());
+            paramMap.put("bid",bookById.getId());
             shopCart.add(paramMap);
         });
 
@@ -119,6 +133,18 @@ public class OrderController {
         }
 
         return new Result<List<Map<String, Object>>>().success("获取购物车成功", shopCart);
+    }
+
+    /**
+     * Get all cart result.
+     *
+     * @return the result
+     */
+    @GetMapping("getAllCart")
+    public Result<Object> getAllCart(){
+        User loginUser = JSONObject.parseObject(String.valueOf(redisTemplate.opsForValue().get("loginUser")), User.class);
+        List orders = orderService.getAllOrders(loginUser.getId());
+        return new Result<>().success("获取购物车成功",orders);
     }
 
 }
