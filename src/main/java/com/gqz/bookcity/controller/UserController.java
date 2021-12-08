@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.constant.StatusCode;
 import com.gqz.bookcity.entity.Result;
-import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.pojo.User;
 import com.gqz.bookcity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

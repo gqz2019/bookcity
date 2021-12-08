@@ -1,6 +1,6 @@
 package com.gqz.bookcity.dao;
 
-import com.gqz.bookcity.po.Order;
+import com.gqz.bookcity.pojo.Order;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 

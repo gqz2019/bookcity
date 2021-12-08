@@ -1,7 +1,7 @@
 package com.gqz.bookcity.service;
 
 import com.github.pagehelper.PageInfo;
-import com.gqz.bookcity.po.Book;
+import com.gqz.bookcity.pojo.Book;
 
 /**
  * <p></p>

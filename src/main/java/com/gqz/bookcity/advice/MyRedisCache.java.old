@@ -1,4 +1,4 @@
-/*
+
 package com.gqz.bookcity.advice;
 
 import java.io.Serializable;
@@ -142,4 +142,4 @@ public class MyRedisCache extends RedisCache implements Cache{
     public void setName(String name) {
         this.name = name;
     }
-}*/
+}

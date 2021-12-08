@@ -1,6 +1,6 @@
 package com.gqz.bookcity.service;
 
-import com.gqz.bookcity.po.Order;
+import com.gqz.bookcity.pojo.Order;
 
 import java.util.List;
 

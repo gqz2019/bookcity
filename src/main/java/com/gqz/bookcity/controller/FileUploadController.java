@@ -1,8 +1,8 @@
 package com.gqz.bookcity.controller;
 
 import com.gqz.bookcity.constant.StatusCode;
+import com.gqz.bookcity.entity.FastDFSFile;
 import com.gqz.bookcity.entity.Result;
-import com.gqz.bookcity.pojo.FastDFSFile;
 import com.gqz.bookcity.service.FileService;
 import com.gqz.bookcity.utils.FastDFSClient;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.gqz.bookcity.config;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gqz.bookcity.po.Order;
+import com.gqz.bookcity.pojo.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;

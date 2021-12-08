@@ -1,8 +1,8 @@
 package com.gqz.bookcity.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gqz.bookcity.po.Book;
-import com.gqz.bookcity.po.Order;
+import com.gqz.bookcity.pojo.Book;
+import com.gqz.bookcity.pojo.Order;
 import com.gqz.bookcity.service.BookService;
 import com.gqz.bookcity.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

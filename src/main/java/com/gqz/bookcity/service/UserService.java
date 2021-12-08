@@ -2,7 +2,7 @@ package com.gqz.bookcity.service;
 
 
 import com.github.pagehelper.PageInfo;
-import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.pojo.User;
 
 import java.util.List;
 import java.util.Map;

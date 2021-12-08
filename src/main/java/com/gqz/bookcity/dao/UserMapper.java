@@ -1,6 +1,6 @@
 package com.gqz.bookcity.dao;
 
-import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.pojo.User;
 import org.apache.ibatis.annotations.MapKey;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;

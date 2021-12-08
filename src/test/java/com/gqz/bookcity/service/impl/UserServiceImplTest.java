@@ -1,24 +1,22 @@
 package com.gqz.bookcity.service.impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.pojo.User;
 import com.gqz.bookcity.service.OrderService;
 import com.gqz.bookcity.service.UserService;
-import org.junit.After;
-import org.junit.Before;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * UserServiceImpl Tester.
@@ -29,70 +27,13 @@ import java.net.URLConnection;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring.xml")
+@Slf4j
 public class UserServiceImplTest {
     @Autowired
     private UserService userService;
     @Autowired
     private OrderService orderService;
 
-
-    /**
-     * Before.
-     *
-     * @throws Exception the exception
-     */
-    @Before
-    public void before() throws Exception {
-    }
-
-    /**
-     * After.
-     *
-     * @throws Exception the exception
-     */
-    @After
-    public void after() throws Exception {
-    }
-
-    /**
-     * Method: add(User user)
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void testAdd() throws Exception {
-//TODO: Test goes here...
-    }
-
-    /**
-     * Method: getUserList(Integer pageIndex, Integer pageSize)
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void testGetUserList() throws Exception {
-//TODO: Test goes here...
-    }
-
-    /**
-     * Method: deleteUserById(Integer id)
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void testDeleteUserById() throws Exception {
-//TODO: Test goes here...
-    }
-
-    /**
-     * Method: getUserById(Integer id)
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void testGetUserById() throws Exception {
-//TODO: Test goes here...
-    }
 
     @Autowired
     private DruidDataSource druidDataSource;
@@ -143,17 +84,9 @@ public class UserServiceImplTest {
      */
     @Test
     public void url() throws IOException {
-        String url= "https://baidu.com";
-
-        URL net = new URL(url);
-        URLConnection connection = net.openConnection();
-        connection.setDoOutput(true);
-        connection.setUseCaches(false);
-        connection.setConnectTimeout(10000);
-        connection.connect();
-        DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
-
-        User user = new User();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getDetails();
+        log.info(principal.toString());
 
     }
 

@@ -2,7 +2,7 @@ package com.gqz.bookcity.advice;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;

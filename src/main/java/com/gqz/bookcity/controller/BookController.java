@@ -2,7 +2,7 @@ package com.gqz.bookcity.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.entity.Result;
-import com.gqz.bookcity.po.Book;
+import com.gqz.bookcity.pojo.Book;
 import com.gqz.bookcity.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.gqz.bookcity.service.impl;
 
 import com.gqz.bookcity.dao.BookMapper;
-import com.gqz.bookcity.po.Book;
+import com.gqz.bookcity.pojo.Book;
 import com.gqz.bookcity.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

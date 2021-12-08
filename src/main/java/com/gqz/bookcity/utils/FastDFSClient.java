@@ -1,6 +1,6 @@
 package com.gqz.bookcity.utils;
 
-import com.gqz.bookcity.pojo.FastDFSFile;
+import com.gqz.bookcity.entity.FastDFSFile;
 import org.csource.common.MyException;
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.*;

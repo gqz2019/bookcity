@@ -1,15 +1,16 @@
 package com.gqz.bookcity.dao;
 
-import com.gqz.bookcity.pojo.Role;
+import com.gqz.bookcity.pojo.UserRole;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * <p></p>
+ * <p>用户与角色的关联</p>
  *
  * @author gqz20
- * @create 2021-11-20 14:06
+ * @create 2021-12-06 17:32
  **/
 @Repository
-public interface RoleMapper extends Mapper<Role> {
+public interface UserRoleMapper extends Mapper<UserRole> {
+
 }

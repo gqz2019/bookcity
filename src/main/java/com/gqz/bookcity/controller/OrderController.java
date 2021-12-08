@@ -1,15 +1,15 @@
 package com.gqz.bookcity.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.gqz.bookcity.entity.Result;
-import com.gqz.bookcity.po.Book;
-import com.gqz.bookcity.po.Order;
-import com.gqz.bookcity.po.User;
+import com.gqz.bookcity.pojo.Book;
+import com.gqz.bookcity.pojo.Order;
+import com.gqz.bookcity.pojo.User;
 import com.gqz.bookcity.service.BookService;
 import com.gqz.bookcity.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -44,6 +44,7 @@ public class OrderController {
         this.redisTemplate = redisTemplate;
     }
 
+
     /**
      * 添加到购物车
      *
@@ -51,11 +52,15 @@ public class OrderController {
      */
     @PostMapping("/addCart")
     public Result addCart(@RequestBody Book book) {
-        Object loginUser = redisTemplate.opsForValue().get("loginUser");
-        if (loginUser == null) {
+//        Object loginUser = redisTemplate.opsForValue().get("loginUser");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+
+        if (principal == null) {
             throw new RuntimeException("请先登录");
         }
-        User login = JSON.parseObject((String) loginUser, User.class);
+//        User login = JSON.parseObject((String) loginUser, User.class);
 
         Order order = new Order(null,
                 null,
@@ -64,7 +69,7 @@ public class OrderController {
                 book.getPrice().multiply(BigDecimal.valueOf(1)),
                 LocalDate.now(),
                 0,
-                login.getId());
+                principal.getId());
         orderService.addCart(order);
          ids.add(book.getId());
         return new Result().success("添加购物车成功");
@@ -142,8 +147,10 @@ public class OrderController {
      */
     @GetMapping("getAllCart")
     public Result<Object> getAllCart(){
-        User loginUser = JSONObject.parseObject(String.valueOf(redisTemplate.opsForValue().get("loginUser")), User.class);
-        List orders = orderService.getAllOrders(loginUser.getId());
+//        User loginUser = JSONObject.parseObject(String.valueOf(redisTemplate.opsForValue().get("loginUser")), User.class);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User principal = (User) authentication.getPrincipal();
+        List orders = orderService.getAllOrders(principal.getId());
         return new Result<>().success("获取购物车成功",orders);
     }
 

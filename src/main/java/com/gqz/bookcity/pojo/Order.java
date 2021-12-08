@@ -1,4 +1,4 @@
-package com.gqz.bookcity.po;
+package com.gqz.bookcity.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

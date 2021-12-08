@@ -5,20 +5,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
                   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <!--要拦截的路径-->
-            <mvc:mapping path="/**"/>
-            <!--不拦截的路径-->
-            <mvc:exclude-mapping path="/user/signIn"/>
-            <mvc:exclude-mapping path="/resources/**"/>
-            <bean class="com.gqz.bookcity.advice.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash;要拦截的路径&ndash;&gt;-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            &lt;!&ndash;不拦截的路径&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/user/signIn"/>-->
+<!--            <mvc:exclude-mapping path="/resources/**"/>-->
+<!--            <bean class="com.gqz.bookcity.advice.LoginInterceptor"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
     <!--配置静态文件目录-->
     <!--    <mvc:resources mapping="/**" location="/static/" />-->
 
-    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+<!--    <mvc:default-servlet-handler></mvc:default-servlet-handler>-->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">

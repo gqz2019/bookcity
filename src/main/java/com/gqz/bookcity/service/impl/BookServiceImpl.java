@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.gqz.bookcity.dao.BookMapper;
-import com.gqz.bookcity.po.Book;
+import com.gqz.bookcity.pojo.Book;
 import com.gqz.bookcity.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
